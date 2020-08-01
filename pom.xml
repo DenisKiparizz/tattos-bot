@@ -18,9 +18,24 @@
         <java.version>11</java.version>
         <org.modelmapper>2.3.2</org.modelmapper>
         <swagger>2.9.2</swagger>
+        <lombok>1.18.10</lombok>
+        <telegram>4.9</telegram>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.telegram</groupId>
+            <artifactId>telegrambots</artifactId>
+            <version>${telegram}</version>
+        </dependency>
 
         <!-- Liquibase -->
         <dependency>
@@ -94,6 +109,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>tattoo-app</finalName>
+
     </build>
 
 </project>

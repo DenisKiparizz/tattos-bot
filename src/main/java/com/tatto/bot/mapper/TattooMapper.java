@@ -2,6 +2,7 @@ package com.tatto.bot.mapper;
 
 import com.tatto.bot.dto.TattooDto;
 import com.tatto.bot.entity.prod.Tattoo;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,10 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class TattooMapper {
 
-    @Autowired
-    ModelMapper modelMapper;
+    public final ModelMapper modelMapper;
 
     public Tattoo toResource(TattooDto tattoo) {
         return modelMapper.map(tattoo, Tattoo.class);

@@ -1,8 +1,17 @@
 package com.tatto.bot.entity.prod;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tattoo")
 public class Tattoo {
     @Id
@@ -16,30 +25,4 @@ public class Tattoo {
     @Column(name = "description")
     private String description;
 
-    public Tattoo() {
-    }
-
-    public EStyle getStyle() {
-        return style;
-    }
-
-    public void setStyle(EStyle style) {
-        this.style = style;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

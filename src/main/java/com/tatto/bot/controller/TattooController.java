@@ -1,17 +1,18 @@
 package com.tatto.bot.controller;
 
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.service.TattoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tatto.bot.service.TattooServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("tattooP")
 public class TattooController {
-    @Autowired
-    TattoServiceImpl tattooService;
+
+    public final TattooServiceImpl tattooService;
 
     @PostMapping
     public TattooDto add(TattooDto tattoo) {
@@ -35,4 +36,8 @@ public class TattooController {
         return tattooService.updateTattoo(id, tattooDto);
     }
 
+    @GetMapping("{style}")
+    public TattooDto findByStyle(@PathVariable String style) {
+        return tattooService.findByStyle(style);
+    }
 }

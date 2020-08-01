@@ -8,7 +8,7 @@ public enum EStyle {
 
     private final String style;
 
-    private EStyle(String code) {
+    EStyle(String code) {
         this.style = code;
     }
 
