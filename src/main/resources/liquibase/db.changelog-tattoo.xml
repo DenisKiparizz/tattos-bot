@@ -1,0 +1,49 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+
+    <changeSet id="1.0.0" author="Denis Solodkiy">
+        <createTable tableName="tattoo">
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="style" type="VARCHAR(40)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.1" author="Denis Solodkiy">
+
+        <insert tableName="tattoo">
+            <column name="style" value="JAPAN"/>
+            <column name="description" value="This is JAPAN style"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="style" value="HARDCORE"/>
+            <column name="description" value="This is HARDCORE style"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="style" value="REALISM"/>
+            <column name="description" value="This is REALISM style"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="style" value="OLD_SCHOOL"/>
+            <column name="description" value="This is OLD_SCHOOL style"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
