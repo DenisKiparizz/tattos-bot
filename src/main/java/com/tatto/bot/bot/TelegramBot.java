@@ -15,6 +15,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -44,12 +46,18 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        TattooDto tattooDto = tattoService.findByStyle(update.getMessage().getText());
+        List<TattooDto> tattooDto = tattoService.findByStyle(update.getMessage().getText());
         String message;
-        if (tattooDto != null) {
-            message = tattooDto.getDescription();
+        if (tattooDto.size() > 0) {
+            message = tattooDto.stream()
+                    .map(tattooDto1 ->
+                            tattooDto1.getPicture() + "\n" +
+                                    tattooDto1.getDescription() + "\n" +
+                                    tattooDto1.getUrl()+"\n")
+                    .map(String::valueOf)
+                    .collect(Collectors.joining("\n"));
         } else {
-            message = "Don't have this style";
+            message = update.getMessage().getText();
         }
         sendMsg(update.getMessage().getChatId().toString(), message);
     }

@@ -1,7 +1,7 @@
 package com.tatto.bot.service;
 
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.entity.prod.Tattoo;
+import com.tatto.bot.entity.Tattoo;
 import com.tatto.bot.mapper.TattooMapper;
 import com.tatto.bot.repository.TattooRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,16 +21,17 @@ public class TattooServiceImpl {
 
     public TattooDto create(TattooDto tattooDto) {
         Tattoo tattoo = mapper.toResource(tattooDto);
-        Tattoo save = tattooRepository.save(tattoo);
+        Tattoo save = tattooRepository.saveAndFlush(tattoo);
         return mapper.toDto(save);
     }
 
-    public TattooDto findByStyle(String style) {
-        return mapper.toDto(tattooRepository.findAll().stream()
+    public List<TattooDto> findByStyle(String style) {
+        return mapper.mapListToDto(tattooRepository.findAll().stream()
                 .filter(tattoo ->
-                        tattoo.getStyle().getStyle().equalsIgnoreCase(style))
-                .findFirst().orElseThrow(() ->
-                        new NullPointerException("No this style")));
+                        tattoo.getStyles()
+                                .getStyle()
+                                .getStyle().equalsIgnoreCase(style))
+                .collect(Collectors.toList()));
     }
 
     public List<TattooDto> getAll() {

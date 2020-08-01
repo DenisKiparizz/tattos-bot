@@ -37,7 +37,7 @@ public class TattooController {
     }
 
     @GetMapping("{style}")
-    public TattooDto findByStyle(@PathVariable String style) {
+    public List<TattooDto> findByStyle(@PathVariable String style) {
         return tattooService.findByStyle(style);
     }
 }

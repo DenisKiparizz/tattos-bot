@@ -1,4 +1,4 @@
-package com.tatto.bot.entity.prod;
+package com.tatto.bot.entity.enums;
 
 public enum EStyle {
     JAPAN("JAPAN"),

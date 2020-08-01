@@ -4,6 +4,39 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
 
+    <changeSet id="1.0.3" author="Denis Solodkiy">
+        <createTable tableName="style">
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="style" type="VARCHAR(40)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="1.0.4" author="Denis Solodkiy">
+        <insert tableName="style">
+            <column name="style" value="JAPAN"/>
+        </insert>
+
+        <insert tableName="style">
+            <column name="style" value="HARDCORE"/>
+        </insert>
+
+        <insert tableName="style">
+            <column name="style" value="REALISM"/>
+        </insert>
+
+        <insert tableName="style">
+            <column name="style" value="OLD_SCHOOL"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="1.0.0" author="Denis Solodkiy">
         <createTable tableName="tattoo">
 
@@ -11,39 +44,90 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="style" type="VARCHAR(40)">
+            <column name="picture" type="VARCHAR(40)">
                 <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="picture_url" type="VARCHAR(255)">
+                <constraints nullable="true" unique="false"/>
             </column>
 
             <column name="description" type="VARCHAR(255)">
                 <constraints nullable="false" unique="false"/>
             </column>
 
+            <column name="style_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="style_id" references="style(id)"/>
+            </column>
+
         </createTable>
     </changeSet>
 
     <changeSet id="1.0.1" author="Denis Solodkiy">
-
         <insert tableName="tattoo">
-            <column name="style" value="JAPAN"/>
-            <column name="description" value="This is JAPAN style"/>
+            <column name="picture" value="CARP"/>
+            <column name="description" value="Carp: also known as koi in Japanese, these fish are a symbol of determination."/>
+            <column name="picture_url" value="https://i.pinimg.com/originals/0e/24/13/0e241347eab0cec620a0c848c6fc69c0.jpg"/>
+            <column name="style_id" value="1"/>
         </insert>
 
         <insert tableName="tattoo">
-            <column name="style" value="HARDCORE"/>
-            <column name="description" value="This is HARDCORE style"/>
+            <column name="picture" value="DRAGON"/>
+            <column name="description" value="Dragon: these mythical beasts are a popular symbol for wisdom, strength, and protection in tattoo designs. In Japan, dragons are seen as ferocious yet benevolent creatures."/>
+            <column name="picture_url" value="https://i.pinimg.com/564x/71/dd/ef/71ddef2b4ef69e06419262a4515bf76c.jpg"/>
+            <column name="style_id" value="1"/>
         </insert>
 
         <insert tableName="tattoo">
-            <column name="style" value="REALISM"/>
-            <column name="description" value="This is REALISM style"/>
+            <column name="picture" value="FLOWERS"/>
+            <column name="description" value="Flowers: different kinds of flowers have unique tattoo meanings in Japan. For example, the rose represents eternal love, and the hibiscus represents gentleness. Check out our floral tattoo meanings page for a more comprehensive list."/>
+            <column name="picture_url" value="https://www.tattoolife.com/wp-content/uploads/2017/10/Shion-Daruma-Goya-Iwate-Japan-031.jpg"/>
+            <column name="style_id" value="1"/>
         </insert>
 
         <insert tableName="tattoo">
-            <column name="style" value="OLD_SCHOOL"/>
+            <column name="picture" value="FU-DOGS"/>
+            <column name="description" value="Fu-Dogs: these tattoo designs resemble lions with pointed ears. Fu-dogs are mythical creatures that represent guardianship, prosperity, and success."/>
+            <column name="picture_url" value="https://www.tattoolife.com/wp-content/uploads/2018/12/Maddison-Magick-The-Tattoo-Emporium-Nottingham-UK-016.jpg"/>
+            <column name="style_id" value="1"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="picture" value="MORIAK"/>
             <column name="description" value="This is OLD_SCHOOL style"/>
+            <column name="style_id" value="4"/>
         </insert>
 
+        <insert tableName="tattoo">
+            <column name="picture" value="LASTOCHKA"/>
+            <column name="description" value="This is OLD_SCHOOL style"/>
+            <column name="style_id" value="4"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="picture" value="PARTRET"/>
+            <column name="description" value="This is REALISM style"/>
+            <column name="style_id" value="3"/>
+        </insert>
+
+
+        <insert tableName="tattoo">
+            <column name="picture" value="PEISAZ"/>
+            <column name="description" value="This is PEIZASH style"/>
+            <column name="style_id" value="3"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="picture" value="JAKOR"/>
+            <column name="description" value="This is OLD_SCHOOL style"/>
+            <column name="style_id" value="4"/>
+        </insert>
+
+        <insert tableName="tattoo">
+            <column name="picture" value="TOPOR"/>
+            <column name="description" value="This is OLD_SCHOOL style"/>
+            <column name="style_id" value="4"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

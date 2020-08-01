@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 //@Entity
 //@Table(name = "tattoo")
-public class SimpleTattoo {
+public class SimpleTattooDelete {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -13,7 +13,7 @@ public class SimpleTattoo {
     @Column(name = "description")
     private String description;
 
-    public SimpleTattoo() {
+    public SimpleTattooDelete() {
     }
 
     public Long getId() {

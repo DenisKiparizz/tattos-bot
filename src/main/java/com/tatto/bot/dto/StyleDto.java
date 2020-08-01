@@ -1,5 +1,7 @@
 package com.tatto.bot.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tatto.bot.entity.enums.EStyle;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,13 +10,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class TattooDto {
-    @ApiModelProperty(hidden = true)
+@NoArgsConstructor
+public class StyleDto {
     private Long id;
-    private String picture;
-    private String url;
-    private String description;
-    private StyleDto style;
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    private EStyle style;
 }
