@@ -1,6 +1,7 @@
 package com.tatto.bot.controller;
 
 import com.tatto.bot.dto.TattooDto;
+import com.tatto.bot.dto.TattooRequest;
 import com.tatto.bot.service.TattooServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("tattooP")
+@RequestMapping("tattoo")
 public class TattooController {
 
     public final TattooServiceImpl tattooService;

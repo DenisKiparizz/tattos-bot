@@ -23,8 +23,8 @@ public class Style {
     private Long id;
 
     @Column(name = "style")
-    @Enumerated(EnumType.STRING)
-    private EStyle style;
+//    @Enumerated(EnumType.STRING)
+    private String style;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,

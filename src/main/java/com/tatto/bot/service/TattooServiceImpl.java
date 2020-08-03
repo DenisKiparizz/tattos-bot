@@ -21,7 +21,7 @@ public class TattooServiceImpl {
 
     public TattooDto create(TattooDto tattooDto) {
         Tattoo tattoo = mapper.toResource(tattooDto);
-        Tattoo save = tattooRepository.saveAndFlush(tattoo);
+        Tattoo save = tattooRepository.save(tattoo);
         return mapper.toDto(save);
     }
 
@@ -29,8 +29,14 @@ public class TattooServiceImpl {
         return mapper.mapListToDto(tattooRepository.findAll().stream()
                 .filter(tattoo ->
                         tattoo.getStyles()
-                                .getStyle()
                                 .getStyle().equalsIgnoreCase(style))
+                .collect(Collectors.toList()));
+    }
+
+    public List<TattooDto> findByPicture(String picture) {
+        return mapper.mapListToDto(tattooRepository.findAll().stream()
+                .filter(tattoo ->
+                        tattoo.getPicture().equalsIgnoreCase(picture))
                 .collect(Collectors.toList()));
     }
 
