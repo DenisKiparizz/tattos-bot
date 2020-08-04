@@ -17,7 +17,7 @@ services:
       - mysql-db:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: tattos
+      MYSQL_DATABASE: tattoo_db
 
 volumes:
   mysql-db:

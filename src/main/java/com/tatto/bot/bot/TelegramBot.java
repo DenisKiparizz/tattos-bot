@@ -32,10 +32,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     private String USERNAME;
 
     public final TelegramBotsApi telegramBotsApi;
-    public final TattooServiceImpl tattoService;
+    public final TattooServiceImpl tattooService;
     public final StyleServiceImpl styleService;
 
-    public static String message = "";
+    public static String message;
     public static ReplyKeyboardMarkup keyboardMarkup;
     public static List<TattooDto> tattooDto;
 
@@ -63,7 +63,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         List<KeyboardRow> keyboard = new ArrayList<>();
         KeyboardRow picture = new KeyboardRow();
         KeyboardRow styles = new KeyboardRow();
-        tattoService.findByStyle(style).stream()
+        tattooService.findByStyle(style).stream()
                 .map(pic -> picture.add(pic.getPicture()))
                 .collect(Collectors.toList());
         styleService.getAll().stream()
@@ -76,7 +76,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private String getMaterialsPicture(Update update) {
-        tattooDto = tattoService.findByPicture(update.getMessage().getText());
+        tattooDto = tattooService.findByPicture(update.getMessage().getText());
         if (tattooDto.size() > 0) {
             message = tattooDto.stream()
                     .map(tattooDto1 ->
@@ -88,8 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     .collect(Collectors.joining("\n"));
             keyboardMarkup = new ReplyKeyboardMarkup();
         } else {
-            List<String> styles = styleService.getAll()
-                    .stream()
+            List<String> styles = styleService.getAll().stream()
                     .map(StyleDto::getStyle)
                     .collect(Collectors.toList());
             if (styles.contains(update.getMessage().getText())) {
@@ -129,5 +128,4 @@ public class TelegramBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return (TOKEN);
     }
-
 }

@@ -1,11 +1,13 @@
 package com.tatto.bot.controller;
 
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.dto.TattooRequest;
 import com.tatto.bot.service.TattooServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -33,12 +35,15 @@ public class TattooController {
     @PutMapping("{id}")
     public TattooDto update(
             @PathVariable(name = "id") Long id,
-            TattooDto tattooDto) {
+            @Valid TattooDto tattooDto) {
         return tattooService.updateTattoo(id, tattooDto);
     }
 
     @GetMapping("{style}")
-    public List<TattooDto> findByStyle(@PathVariable String style) {
+    public List<TattooDto> findByStyle(@PathVariable
+                                       @NotNull
+                                       @Size(min = 2, message = "Style has to be 2+ char")
+                                               String style) {
         return tattooService.findByStyle(style);
     }
 }

@@ -7,6 +7,7 @@ import com.tatto.bot.service.StyleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,13 +24,14 @@ public class StyleController {
 
     @PostMapping
     @CreateStyleApi
-    public StyleDto create(StyleRequest styleDto) {
+    public StyleDto create(
+            @Valid StyleRequest styleDto) {
         return styleService.create(styleDto);
     }
 
     @PutMapping("{id}")
     public StyleDto id(@PathVariable Long id,
-                       StyleRequest style) {
+                       @Valid StyleRequest style) {
         return styleService.update(id, style);
     }
 

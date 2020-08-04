@@ -2,6 +2,7 @@ package com.tatto.bot.service;
 
 import com.tatto.bot.dto.TattooDto;
 import com.tatto.bot.entity.Tattoo;
+import com.tatto.bot.exeptions.TattooNotFoundException;
 import com.tatto.bot.mapper.TattooMapper;
 import com.tatto.bot.repository.TattooRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,6 @@ public class TattooServiceImpl {
         return mapper.toDto(tattooRepository.findById(id)
                 .map(tattoo -> mapper.toResource(request))
                 .map(tattooRepository::save)
-                .orElseThrow(() -> new NullPointerException("Tattoo with this id not found")));
+                .orElseThrow(() -> new TattooNotFoundException(id)));
     }
 }

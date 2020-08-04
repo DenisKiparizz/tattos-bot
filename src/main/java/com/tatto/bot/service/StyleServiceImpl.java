@@ -3,6 +3,7 @@ package com.tatto.bot.service;
 import com.tatto.bot.dto.StyleDto;
 import com.tatto.bot.dto.StyleRequest;
 import com.tatto.bot.entity.Style;
+import com.tatto.bot.exeptions.StyleNotFoundException;
 import com.tatto.bot.mapper.StyleMapper;
 import com.tatto.bot.repository.StyleRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class StyleServiceImpl {
                     return style1;
                 })
                 .map(styleRepository::save)
-                .orElseThrow(() -> new NullPointerException("No style with this id"));
+                .orElseThrow(() -> new StyleNotFoundException(id));
         return styleMapper.toDto(styleDto);
     }
 
