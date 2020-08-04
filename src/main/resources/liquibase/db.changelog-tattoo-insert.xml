@@ -1,25 +1,9 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-
-    <changeSet id="1.0.1" author="Denis Solodkiy">
-        <createTable tableName="style">
-
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-
-            <column name="style" type="VARCHAR(40)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-
-        </createTable>
-    </changeSet>
-
-
-    <changeSet id="1.0.2" author="Denis Solodkiy">
+    <changeSet id="3.0.2" author="Denis Solodkiy">
         <insert tableName="style">
             <column name="style" value="JAPAN"/>
         </insert>
@@ -33,34 +17,8 @@
         </insert>
     </changeSet>
 
-    <changeSet id="1.0.3" author="Denis Solodkiy">
-        <createTable tableName="tattoo">
-
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-
-            <column name="picture" type="VARCHAR(40)">
-                <constraints nullable="false" unique="false"/>
-            </column>
-
-            <column name="picture_url" type="VARCHAR(255)">
-                <constraints nullable="true" unique="false"/>
-            </column>
-
-            <column name="description" type="VARCHAR(1000)">
-                <constraints nullable="false" unique="false"/>
-            </column>
-
-            <column name="style_id" type="BIGINT">
-                <constraints nullable="true" foreignKeyName="style_id" references="style(id)"/>
-            </column>
-
-        </createTable>
-    </changeSet>
-
-    <changeSet id="1.0.4" author="Denis Solodkiy">
-        <insert tableName="tattoo">
+    <changeSet id="3.0.4" author="Denis Solodkiy">
+        <insert tableName="tattoos">
             <column name="picture" value="Koi"/>
             <column name="description"
                     value="Carp: also known as koi in Japanese, these fish are a symbol of determination."/>
@@ -69,7 +27,7 @@
             <column name="style_id" value="1"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Dragon"/>
             <column name="description"
                     value="Dragon: these mythical beasts are a popular symbol for wisdom, strength, and protection in tattoo designs. In Japan, dragons are seen as ferocious yet benevolent creatures."/>
@@ -77,7 +35,7 @@
             <column name="style_id" value="1"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Flowers"/>
             <column name="description"
                     value="Flowers: different kinds of flowers have unique tattoo meanings in Japan. For example, the rose represents eternal love, and the hibiscus represents gentleness. Check out our floral tattoo meanings page for a more comprehensive list."/>
@@ -86,7 +44,7 @@
             <column name="style_id" value="1"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Fu-Dogs"/>
             <column name="description"
                     value="Fu-Dogs: these tattoo designs resemble lions with pointed ears. Fu-dogs are mythical creatures that represent guardianship, prosperity, and success."/>
@@ -95,7 +53,7 @@
             <column name="style_id" value="1"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Swallow"/>
             <column name="description"
                     value="Swallows and sailors have a lot in common. Swallows, unlike other birds, tend to return to the same nesting site consistently after travelling long distances in extreme conditions, similar to a sailor at sea. Often seen in pairs when tattooed, it is thought that sailors would get one swallow tattoo to represent setting sail, and would get the other upon their return home."/>
@@ -104,7 +62,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Shark"/>
             <column name="description"
                     value="Sailors were often exposed to sharks on their voyages at sea. By wearing a shark tattoo it was thought to protect you from the perils of the ocean. Sharks have no natural predators and this represents a reluctance to be victimised by others. Sharks have a strong sense of calm yet they are constantly on the move/rarely rest."/>
@@ -113,7 +71,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Ship"/>
             <column name="description"
                     value="Also falling within the Maritime theme is the imagery of a ship. This of course, is a big part of a sailor’s life as it represents freedom."/>
@@ -122,7 +80,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Dagger"/>
             <column name="description"
                     value="The meaning of a Traditional dagger tattoo really comes down to the wearer of the piece. On their own, a dagger can symbolise both negative and positive qualities and experiences. "/>
@@ -131,7 +89,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Skull"/>
             <column name="description"
                     value="Contrary to what one may think, the skull symbolises something a little less morbid than an interest in the dead. When you get a tattoo, it’s on you for life. You have committed to this design until you die, so it’s no wonder that skulls are tattooed so frequently to represent the concept of a tattoo alone."/>
@@ -140,7 +98,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Snake"/>
             <column name="description"
                     value="The snake as an animal is very adaptable and powerful. Often taking on prey a lot bigger than itself, the snake’s strength comes in its intelligence (and venom). Snake tattoos when seen on their own, are often drawn in a coiled position reflecting a ‘don’t mess with me’ sort of attitude. This is due to the idea that when approached by others, they are capable of striking at any time."/>
@@ -149,7 +107,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Butterfly"/>
             <column name="description"
                     value="As tattoo designs are often inspired by the natural world it is no wonder why this bright and beautiful insect found its place as a popular traditional tattoo design. Along with their beauty being a meaning in its own right, it’s furthermore the butterflies transformation which make them symbolically special. As butterflies metamorphose (caterpillar – cocoon – butterfly) this tattoo can demonstrate one coming into their own and having an attitude of reinvention."/>
@@ -158,7 +116,7 @@
             <column name="style_id" value="3"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Anchor"/>
             <column name="description"
                     value="At sea, the anchor is the most secure object in a sailor's life, making it the perfect representation of stability. This is why you'll often see anchor tattoos emblazoned with  name of a sailor's sweetheart (the people who keep them grounded). Anchors have become popular within general tattoo culture over the years, but the symbolism is still the same. It's a reminder of what keeps you steady."/>
@@ -167,7 +125,7 @@
             <column name="style_id" value="2"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Hawaii"/>
             <column name="description"
                     value="After WWII, Jerry remained on his beloved Hawaiian Islands the rest of his life. He loved its beauty and exoticism and that it was as far away as he could get from a world he increasingly viewed as a screwed-up place, devoid of honor and conviction.  From his legendary hula girl to more scenic pieces, his Hawaii tattoos reflected his sense of the islands as a kind of paradise on earth."/>
@@ -176,7 +134,7 @@
             <column name="style_id" value="2"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Heart"/>
             <column name="description"
                     value="A sailor staring down a long stint at sea- including the possibility of not returning home-often wanted a heart tattoo to keep his loved ones close. Sometimes these hearts were just images. Other times, they read Mom or featured the name of a special girl. Hearts still remain one of the most popular tattoos for both sailors and civilians.."/>
@@ -185,7 +143,7 @@
             <column name="style_id" value="2"/>
         </insert>
 
-        <insert tableName="tattoo">
+        <insert tableName="tattoos">
             <column name="picture" value="Nautical star"/>
             <column name="description"
                     value="Representing the North Star (historically used by sailors use for navigation) a nautical star tattoo was believed to keep a sailor on course. As such, they were also considered to help guide a sailor home."/>

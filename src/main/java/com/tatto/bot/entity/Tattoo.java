@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tattoo")
+@Table(name = "tattoos")
 public class Tattoo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

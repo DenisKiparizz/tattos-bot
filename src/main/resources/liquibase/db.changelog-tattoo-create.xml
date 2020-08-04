@@ -1,0 +1,50 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="1.0.1" author="Denis Solodkiy">
+        <createTable tableName="style">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="style" type="VARCHAR(40)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="style"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="1.0.3" author="Denis Solodkiy">
+        <createTable tableName="tattoos">
+
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="picture" type="VARCHAR(40)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="picture_url" type="VARCHAR(255)">
+                <constraints nullable="true" unique="false"/>
+            </column>
+
+            <column name="description" type="VARCHAR(1000)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+
+            <column name="style_id" type="BIGINT">
+                <constraints nullable="true" foreignKeyName="style_id" references="style(id)"/>
+            </column>
+
+        </createTable>
+        <rollback>
+            <dropTable tableName="tattoos"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
