@@ -1,4 +1,4 @@
-package com.tatto.bot.dto;
+package com.tatto.bot.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

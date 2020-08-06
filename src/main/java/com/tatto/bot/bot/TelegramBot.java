@@ -2,8 +2,8 @@ package com.tatto.bot.bot;
 
 import com.tatto.bot.dto.StyleDto;
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.service.StyleServiceImpl;
-import com.tatto.bot.service.TattooServiceImpl;
+import com.tatto.bot.service.impl.StyleServiceImpl;
+import com.tatto.bot.service.impl.TattooServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -92,7 +92,10 @@ public class TelegramBot extends TelegramLongPollingBot {
                     .map(StyleDto::getStyle)
                     .collect(Collectors.toList());
             if (styles.contains(update.getMessage().getText())) {
-                message = "You selected " + update.getMessage().getText() + "\nSelect picture";
+                message = "You selected " + update.getMessage().getText() +
+                        "\nSelect picture";
+            } else if (update.getMessage().getText().equals("/start")) {
+                message = "Hello mr";
             } else {
                 message = "Unfortunately picture or style with this name doesn't exist";
             }

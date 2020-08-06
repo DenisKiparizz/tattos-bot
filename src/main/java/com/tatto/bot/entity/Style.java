@@ -1,13 +1,19 @@
 package com.tatto.bot.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.tatto.bot.entity.enums.EStyle;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +21,21 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "style")
 public class Style {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "style")
-//    @Enumerated(EnumType.STRING)
     private String style;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "styles", cascade = CascadeType.ALL)
     private List<Tattoo> tattoos = new ArrayList<>();
+
+    public Style(Long id, String style) {
+        this.id = id;
+        this.style = style;
+    }
 }

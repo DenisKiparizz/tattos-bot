@@ -1,8 +1,7 @@
 package com.tatto.bot.mapper;
 
-import com.tatto.bot.dto.StyleDto;
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.entity.Style;
+import com.tatto.bot.dto.request.TattooRequest;
 import com.tatto.bot.entity.Tattoo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,20 +15,25 @@ import java.util.stream.Collectors;
 public class TattooMapper {
 
     public final ModelMapper modelMapper;
+    public final StyleMapper styleMapper;
 
-    public Tattoo toResource(TattooDto tattoo) {
-        StyleDto dto = tattoo.getStyle();
-        Style styleDto = modelMapper.map(dto, Style.class);
-        Tattoo tattoos = modelMapper.map(tattoo, Tattoo.class);
-        tattoos.setStyles(styleDto);
+    public Tattoo toResource(TattooDto tattooDto) {
+        Tattoo tattoos = modelMapper.map(tattooDto, Tattoo.class);
+        tattoos.setStyles(styleMapper.toResource(tattooDto.getStyle()));
         return tattoos;
     }
 
+    public TattooDto setTattooRequestParam(TattooRequest tattooRequest, Tattoo tattoo) {
+        tattoo.setStyles(styleMapper.toResource(tattooRequest.getStyle()));
+        modelMapper.map(tattooRequest, tattoo);
+        TattooDto tattooDto = modelMapper.map(tattooRequest, TattooDto.class);
+        tattooDto.setId(tattoo.getId());
+        return tattooDto;
+    }
+
     public TattooDto toDto(Tattoo tattoo) {
-        Style style = tattoo.getStyles();
-        StyleDto styleDto = modelMapper.map(style, StyleDto.class);
         TattooDto tattooDto = modelMapper.map(tattoo, TattooDto.class);
-        tattooDto.setStyle(styleDto);
+        tattooDto.setStyle(styleMapper.toDto(tattoo.getStyles()));
         return tattooDto;
     }
 

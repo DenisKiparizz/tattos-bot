@@ -1,10 +1,8 @@
 package com.tatto.bot.mapper;
 
 import com.tatto.bot.dto.StyleDto;
-import com.tatto.bot.dto.StyleRequest;
-import com.tatto.bot.dto.TattooDto;
+import com.tatto.bot.dto.request.StyleRequest;
 import com.tatto.bot.entity.Style;
-import com.tatto.bot.entity.Tattoo;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -22,8 +20,11 @@ public class StyleMapper {
         return modelMapper.map(style, StyleDto.class);
     }
 
-    public Style toResource(StyleRequest style) {
-        return modelMapper.map(style, Style.class);
+    public StyleDto setStyleRequestParam(StyleRequest styleRequest, Style style) {
+        modelMapper.map(styleRequest, style);
+        StyleDto styleDto = modelMapper.map(styleRequest, StyleDto.class);
+        styleDto.setId(style.getId());
+        return styleDto;
     }
 
     public Style toResource(StyleDto style) {

@@ -47,7 +47,6 @@
             <version>${telegram}</version>
         </dependency>
 
-        <!-- Liquibase -->
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
@@ -119,7 +118,6 @@
             </plugin>
         </plugins>
         <finalName>tattoo-app</finalName>
-
     </build>
 
 </project>

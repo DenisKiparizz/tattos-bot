@@ -1,13 +1,18 @@
 package com.tatto.bot.controller;
 
 import com.tatto.bot.dto.TattooDto;
-import com.tatto.bot.service.TattooServiceImpl;
+import com.tatto.bot.dto.request.TattooRequest;
+import com.tatto.bot.service.TattooService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -15,10 +20,10 @@ import java.util.List;
 @RequestMapping("tattoo")
 public class TattooController {
 
-    public final TattooServiceImpl tattooService;
+    private final TattooService tattooService;
 
     @PostMapping
-    public TattooDto add(TattooDto tattoo) {
+    public TattooDto create(TattooDto tattoo) {
         return tattooService.create(tattoo);
     }
 
@@ -35,15 +40,7 @@ public class TattooController {
     @PutMapping("{id}")
     public TattooDto update(
             @PathVariable(name = "id") Long id,
-            @Valid TattooDto tattooDto) {
-        return tattooService.updateTattoo(id, tattooDto);
-    }
-
-    @GetMapping("{style}")
-    public List<TattooDto> findByStyle(@PathVariable
-                                       @NotNull
-                                       @Size(min = 2, message = "Style has to be 2+ char")
-                                               String style) {
-        return tattooService.findByStyle(style);
+            @Valid TattooRequest tattooRequest) {
+        return tattooService.update(id, tattooRequest);
     }
 }
