@@ -1,13 +1,13 @@
 package com.tatto.bot.service.impl;
 
-import com.tatto.bot.dto.StyleDto;
-import com.tatto.bot.dto.TattooDto;
+import com.tatto.bot.dto.*;
 import com.tatto.bot.dto.request.TattooRequest;
 import com.tatto.bot.entity.Style;
 import com.tatto.bot.entity.Tattoo;
 import com.tatto.bot.exeptions.TattooNotFoundException;
 import com.tatto.bot.mapper.TattooMapper;
 import com.tatto.bot.repository.TattooRepository;
+import com.tatto.bot.validation.TattooValidation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,17 +26,21 @@ import static org.mockito.Mockito.*;
 class TattooServiceImplTest {
 
     private static final Style JAPAN = new Style(2L, "JAPAN");
-    private static final Tattoo KOI_JAPAN = new Tattoo(1L, "Koi", "URL", "DESCRIPTION", JAPAN);
+    private static final Tattoo KOI = new Tattoo(1L, "Koi", "URL", "DESCRIPTION", JAPAN);
 
-    private static final StyleDto JAPAN_DTO = new StyleDto(2L, "JAPAN");
-    private static final StyleDto OLD_JAPAN_DTO = new StyleDto(1L, "OLD JAPAN");
-    private static final TattooDto KOI_JAPAN_DTO = new TattooDto(1L, "Koi", "URL", "DESCRIPTION", JAPAN_DTO);
-    private static final TattooDto UPDATED_DTO = new TattooDto(1L, "Hannya", "Hannya url", "Hannya description", OLD_JAPAN_DTO);
+    private static final TattooStyleDto JAPAN_DTO = new TattooStyleDto(2L, "JAPAN");
+    private static final TattooStyleDto HARDCORE_DTO = new TattooStyleDto(1L, "HARDCORE");
 
-    private static final TattooRequest TATTOO_REQUEST = new TattooRequest("Hannya ", "Hannya description", "Hannya url", OLD_JAPAN_DTO);
+    private static final TattooDto KOI_DTO = new TattooDto(1L, "Koi", "URL", "DESCRIPTION", JAPAN_DTO);
+    private static final TattooDto UPDATED_DTO = new TattooDto(1L, "Swallow", "Swallow url", "Swallow description", HARDCORE_DTO);
 
-    private static final List<Tattoo> TATTOO_LIST = Collections.singletonList(KOI_JAPAN);
-    private static final List<TattooDto> TATTOO_LIST_DTO = Collections.singletonList(KOI_JAPAN_DTO);
+    private static final TattooRequest TATTOO_REQUEST = new TattooRequest("Swallow ", "Swallow description", "Swallow url", HARDCORE_DTO);
+
+    private static final List<Tattoo> TATTOO_LIST = Collections.singletonList(KOI);
+    private static final List<TattooDto> TATTOO_LIST_DTO = Collections.singletonList(KOI_DTO);
+
+    @Mock
+    private TattooValidation validation;
 
     @Mock
     private TattooRepository repository;
@@ -49,9 +53,9 @@ class TattooServiceImplTest {
 
     @Test
     public void create() {
-        when(repository.save(any())).thenReturn(KOI_JAPAN);
-        when(tattooMapper.toDto(KOI_JAPAN)).thenReturn(KOI_JAPAN_DTO);
-        TattooDto tattooDto = service.create(KOI_JAPAN_DTO);
+        when(repository.save(any())).thenReturn(KOI);
+        when(tattooMapper.toDto(KOI)).thenReturn(KOI_DTO);
+        TattooDto tattooDto = service.create(KOI_DTO);
         assertNotNull(tattooDto);
     }
 
@@ -66,13 +70,13 @@ class TattooServiceImplTest {
 
     @Test
     public void update() {
-        when(repository.findById(1L)).thenReturn(Optional.of(KOI_JAPAN));
-        when(tattooMapper.setTattooRequestParam(TATTOO_REQUEST, KOI_JAPAN)).thenReturn(UPDATED_DTO);
+        when(repository.findById(1L)).thenReturn(Optional.of(KOI));
+        when(tattooMapper.setTattooRequestParam(TATTOO_REQUEST, KOI)).thenReturn(UPDATED_DTO);
         TattooDto tattooDto = service.update(1L, TATTOO_REQUEST);
-        assertEquals("Hannya", tattooDto.getPicture());
-        assertEquals("Hannya url", tattooDto.getUrl());
-        assertEquals("Hannya description", tattooDto.getDescription());
-        assertNotEquals(UPDATED_DTO.getStyle(), KOI_JAPAN_DTO.getStyle());
+        assertEquals("Swallow", tattooDto.getPicture());
+        assertEquals("Swallow url", tattooDto.getUrl());
+        assertEquals("Swallow description", tattooDto.getDescription());
+        assertNotEquals(UPDATED_DTO.getStyle(), HARDCORE_DTO.getStyle());
     }
 
     @Test

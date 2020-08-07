@@ -2,6 +2,7 @@ package com.tatto.bot.mapper;
 
 import com.tatto.bot.dto.StyleDto;
 import com.tatto.bot.dto.request.StyleRequest;
+import com.tatto.bot.dto.TattooStyleDto;
 import com.tatto.bot.entity.Style;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -16,10 +17,6 @@ public class StyleMapper {
 
     private final ModelMapper modelMapper;
 
-    public StyleDto toDto(Style style) {
-        return modelMapper.map(style, StyleDto.class);
-    }
-
     public StyleDto setStyleRequestParam(StyleRequest styleRequest, Style style) {
         modelMapper.map(styleRequest, style);
         StyleDto styleDto = modelMapper.map(styleRequest, StyleDto.class);
@@ -29,6 +26,18 @@ public class StyleMapper {
 
     public Style toResource(StyleDto style) {
         return modelMapper.map(style, Style.class);
+    }
+
+    public Style toResource(TattooStyleDto style) {
+        return modelMapper.map(style, Style.class);
+    }
+
+    public StyleDto toDto(Style style) {
+        return modelMapper.map(style, StyleDto.class);
+    }
+
+    public TattooStyleDto toTattooStyleDto(Style style) {
+        return modelMapper.map(style, TattooStyleDto.class);
     }
 
     public List<StyleDto> mapListToDto(List<Style> styles) {

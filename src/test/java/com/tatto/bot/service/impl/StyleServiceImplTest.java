@@ -6,6 +6,7 @@ import com.tatto.bot.entity.Style;
 import com.tatto.bot.exeptions.StyleNotFoundException;
 import com.tatto.bot.mapper.StyleMapper;
 import com.tatto.bot.repository.StyleRepository;
+import com.tatto.bot.validation.StyleValidation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,6 +41,9 @@ class StyleServiceImplTest {
 
     private final static List<StyleDto> STYLE_LIST_DTO = Arrays.asList(
             JAPAN_DTO, HARDCORE_DTO, TRAD_DTO);
+    @Mock
+    private StyleValidation validation;
+
     @Mock
     private StyleRepository repository;
 

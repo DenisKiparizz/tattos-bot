@@ -17,12 +17,6 @@ public class TattooMapper {
     public final ModelMapper modelMapper;
     public final StyleMapper styleMapper;
 
-    public Tattoo toResource(TattooDto tattooDto) {
-        Tattoo tattoos = modelMapper.map(tattooDto, Tattoo.class);
-        tattoos.setStyles(styleMapper.toResource(tattooDto.getStyle()));
-        return tattoos;
-    }
-
     public TattooDto setTattooRequestParam(TattooRequest tattooRequest, Tattoo tattoo) {
         tattoo.setStyles(styleMapper.toResource(tattooRequest.getStyle()));
         modelMapper.map(tattooRequest, tattoo);
@@ -31,9 +25,15 @@ public class TattooMapper {
         return tattooDto;
     }
 
+    public Tattoo toResource(TattooDto tattooDto) {
+        Tattoo tattoos = modelMapper.map(tattooDto, Tattoo.class);
+        tattoos.setStyles(styleMapper.toResource(tattooDto.getStyle()));
+        return tattoos;
+    }
+
     public TattooDto toDto(Tattoo tattoo) {
         TattooDto tattooDto = modelMapper.map(tattoo, TattooDto.class);
-        tattooDto.setStyle(styleMapper.toDto(tattoo.getStyles()));
+        tattooDto.setStyle(styleMapper.toTattooStyleDto(tattoo.getStyles()));
         return tattooDto;
     }
 

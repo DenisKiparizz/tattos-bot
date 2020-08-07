@@ -1,5 +1,6 @@
 package com.tatto.bot.dto;
 
+import com.tatto.bot.dto.interfaces.StyleInterface;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StyleDto {
-    private Long id;
+public class StyleDto implements StyleInterface {
     @ApiModelProperty(hidden = true)
+    private Long id;
     private String style;
 }

@@ -31,6 +31,9 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Value("${telegram.username}")
     private String USERNAME;
 
+    private final static String NOT_FOUND_MESSAGE = "Unfortunately picture or style with this name doesn't exist";
+    private final static String WELCOME_MESSAGE = "Welcome to tattoo Bot.\nFor interaction you can use keyboard bellow as well as you can input desired picture or style";
+
     public final TelegramBotsApi telegramBotsApi;
     public final TattooServiceImpl tattooService;
     public final StyleServiceImpl styleService;
@@ -53,9 +56,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         if (update.hasMessage()) {
             keyboardMarkup = getPictureKeyboard(update.getMessage().getText());
         }
-        message = getMaterialsPicture(update);
+        getMaterialsPicture(update);
         sendMsg(
-                update.getMessage().getChatId().toString(), message, keyboardMarkup);
+                update.getMessage().getChatId().toString(),
+                message,
+                keyboardMarkup);
     }
 
     private ReplyKeyboardMarkup getPictureKeyboard(String style) {
@@ -64,43 +69,53 @@ public class TelegramBot extends TelegramLongPollingBot {
         KeyboardRow picture = new KeyboardRow();
         KeyboardRow styles = new KeyboardRow();
         tattooService.findByStyle(style).stream()
-                .map(pic -> picture.add(pic.getPicture()))
-                .collect(Collectors.toList());
+                .map(pic -> picture.add(pic.getPicture())).collect(Collectors.toList());
         styleService.getAll().stream()
-                .map(st -> styles.add(st.getStyle()))
-                .collect(Collectors.toList());
+                .map(st -> styles.add(st.getStyle())).collect(Collectors.toList());
         keyboard.add(picture);
         keyboard.add(styles);
         keyboardMarkup.setKeyboard(keyboard);
         return keyboardMarkup;
     }
 
-    private String getMaterialsPicture(Update update) {
+    private void getMaterialsPicture(Update update) {
         tattooDto = tattooService.findByPicture(update.getMessage().getText());
         if (tattooDto.size() > 0) {
-            message = tattooDto.stream()
-                    .map(tattooDto1 ->
-                            tattooDto1.getPicture() + "\n" +
-                                    tattooDto1.getDescription() + "\n" +
-                                    tattooDto1.getUrl() + "\n"
-                    )
-                    .map(String::valueOf)
-                    .collect(Collectors.joining("\n"));
             keyboardMarkup = new ReplyKeyboardMarkup();
+            message = getInfoAboutSelectedPicture();
         } else {
-            List<String> styles = styleService.getAll().stream()
-                    .map(StyleDto::getStyle)
-                    .collect(Collectors.toList());
-            if (styles.contains(update.getMessage().getText())) {
-                message = "You selected " + update.getMessage().getText() +
-                        "\nSelect picture";
-            } else if (update.getMessage().getText().equals("/start")) {
-                message = "Hello mr";
-            } else {
-                message = "Unfortunately picture or style with this name doesn't exist";
-            }
+            message = getMassageForMoving(update);
         }
-        return message;
+    }
+
+    private String getInfoAboutSelectedPicture() {
+        return tattooDto.stream()
+                .map(tattooDto1 ->
+                        tattooDto1.getPicture() + "\n" +
+                                tattooDto1.getDescription() + "\n" +
+                                tattooDto1.getUrl() + "\n"
+                )
+                .map(String::valueOf)
+                .collect(Collectors.joining("\n"));
+    }
+
+
+    private List<String> getStyle() {
+        return styleService.getAll().stream()
+                .map(StyleDto::getStyle)
+                .collect(Collectors.toList());
+    }
+
+    private String getMassageForMoving(Update update) {
+        List<String> styles = getStyle();
+        if (styles.contains(update.getMessage().getText())) {
+            return "You selected " + update.getMessage().getText() +
+                    "\nSelect picture";
+        } else if (update.getMessage().getText().equals("/start")) {
+            return WELCOME_MESSAGE;
+        } else {
+            return NOT_FOUND_MESSAGE;
+        }
     }
 
 
